@@ -5,15 +5,30 @@
     <!-- Load the Prettify Auto-Loader -->
     <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
     <style>
-        .prettyprint { padding: 15px; border: 1px solid #ccc; background: #f9f9f9; }
+        .prettyprint {
+            padding: 10px;
+            border: 2px solid black;
+            background: #f9f9f9;
+            border-radius: 5px;
+            width: 90%;
+        }
+        .container {
+            width: 100%;
+            display: flex;
+            flex-warp: no-warp;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
     </style>
 </head>
 <body>
 
     <h3>Loaded External Code:</h3>
-    <!-- The container where the code will be injected -->
-    <pre id="code-container" class="prettyprint linenums lang-cpp"></pre>
 
+    <div class="container">
+        <pre id="code-container" class="prettyprint linenums lang-cpp"></pre>
+    </div>
+    
     <script>
         async function loadExternalCode(fileUrl) {
             try {
