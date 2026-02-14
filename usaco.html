@@ -1,99 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>USACO Silver 2025 December Problem 1 Live Solution</title>
-<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
-
-
+    <title>External Code Prettifier</title>
+    <!-- Load the Prettify Auto-Loader -->
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <style>
+        .prettyprint { padding: 15px; border: 1px solid #ccc; background: #f9f9f9; }
+    </style>
 </head>
 <body>
 
-<pre class='prettyprint lang-cpp linenums'>
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-typedef unsigned long long int llu;
+    <h3>Loaded External Code:</h3>
+    <!-- The container where the code will be injected -->
+    <pre id="code-container" class="prettyprint"></pre>
 
-llu computeBeforeBend(llu x, llu startval){
-    llu lastrec = startval;
-    llu rec = startval + ((startval+1)/2)+1;
-    //cout << x<< " " << startval << " "<< lastrec << " " << rec << "\n";
-    if(x < rec && x >= lastrec){
-        return lastrec;
-    }
-    for(llu i = 0; i < 150; i++){
-        lastrec = rec;
-        rec = rec + ((rec+1)/2)+1;
-        //cout << lastrec << " " << rec << "\n";
-        if(x < rec && x >= lastrec){
-            //cout << lastrec << " " << rec << "\n";
-            return lastrec;
-        }
-    }
-    
-    return 123456789;
-}
+    <script>
+        async function loadExternalCode(fileUrl) {
+            try {
+                const response = await fetch(fileUrl);
+                let code = await response.text();
 
+                // 1. Escape HTML characters so code displays as raw text
+                const escapedCode = code
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
 
-llu findpos(llu x, llu t){
-    //cout << x << " " << t << "\n";
-    if(x == 0){
-        if((t + 1) % 3 == 0){
-            return (t+1)/3;
-        }else if(t == 0){
-            return 0;
-        }else{
-            return findpos(0,((t-1)*2)/3);
-        }
-    }else{
-        if(2*x > t){
-            return x;
-        }
-        return findpos(0, t+x);
-    }
-}
-int printcows(int t){
-    vector<int> vals = {0};
-    for(int i = 1; i < t; i++){
-        vector<int> newvals = vals;
-        newvals[(i)/2] = vals[0];
-        for(int j = 0; j < (i)/2; j++){
-            newvals[j] = vals[j+1];
-        }
-        newvals.push_back(i);
-        vals = newvals;
-    }
-    return 0;
-}
+                // 2. Inject into the pre tag
+                const container = document.getElementById('code-container');
+                container.innerHTML = escapedCode;
 
-
-llu findcow(llu c, llu t){
-    if(t < 2*c){
-        return c;
-    }else if(t < 3*c){
-        return 3*c - 1 - t;
-    }
-    llu q = computeBeforeBend(t,3*c-1);
-    
-    if(t == q){
-        return 0;
-    }
-    return (q+1)/2 - (t - q) + 1;
-}
-int main() {
-    llu Q;
-    cin >> Q;
-    
-    while(Q--){
-        llu x, y, z;
-        cin >> x >> y >> z;
-        if(x == 1){
-            cout <<findcow(y,z) << "\n";
-        }else{
-            cout << findpos(y,z) << "\n";
+                // 3. Re-run Prettify to highlight the new content
+                if (typeof PR !== 'undefined') {
+                    PR.prettyPrint();
+                }
+            } catch (err) {
+                console.error('Failed to load file:', err);
+            }
         }
-    }
-}
-</pre>
+
+        // Call the function with your file path
+        loadExternalCode('usacoFiles/Problem_1_USACO_Gold.js');
+    </script>
 
 </body>
 </html>
